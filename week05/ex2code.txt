@@ -1,0 +1,23 @@
+create table _Group(
+  groupId integer not null,
+  primary key (groupId)
+);
+
+create table Company(
+  companyId integer not null,
+  _groupId integer not null,
+  primary key (companyId),
+  foreign key (_groupId) references _Group(groupId)
+);
+
+create table Plant(
+  plantId integer not null,
+  _companyId integer not null,
+  primary key (plantId),
+  foreign key (_companyId) references Company(companyId)
+);
+
+create table Item(
+  itemId integer not null,
+  primary key (itemId)
+);

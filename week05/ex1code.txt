@@ -1,0 +1,44 @@
+create table ShippingAddress(
+   addressId integer not null,
+   houseNumber integer,
+   street varchar(50),
+   district varchar(50),
+   city varchar(20),
+   primary key(addressId)
+ );
+
+create table Customer(
+  clientId integer not null,
+  balance integer,
+  creditLimit integer,
+  discount integer,
+  _addressId integer not null,
+  primary key(clientId),
+  foreign key(_addressId) references ShippingAddress(addressId)
+ );
+ 
+ create table _Order(
+   orderId integer not null,
+   orderDate date,
+   primary key (orderId),
+   _clientId integer not null,
+   _addressId integer not null,
+   foreign key(_clientId) references Customer(clientId),
+   foreign key(_addressId) references ShippingAddress(addressId)
+ );
+ 
+  create table Manufacturer(
+   manufacturerId integer not null,
+   phonenumber integer,
+   primary key(manufacturerId)
+ );
+ 
+ create table Item(
+   itemId integer not null,
+   description varchar(50),
+   primary key(itemId),
+   _manufacturerId integer not null,
+   _orderId integer not null,
+   foreign key(_manufacturerId) references Manufacturer(manufacturerId),
+   foreign key(_orderId) references _Order(orderId)
+ );
