@@ -1,0 +1,18 @@
+Problem 2
+
+SELECT * 
+FROM author, book
+WHERE author_id = editor; 
+
+SELECT first_name, last_name 
+FROM author
+Where author_id NOT IN (
+SELECT editor 
+FROM BOOK);
+
+
+SELECT author_id 
+FROM author
+Where author_id NOT IN (
+SELECT editor 
+FROM BOOK);
