@@ -1,0 +1,40 @@
+PROBLEM 1
+
+/*1.1*/
+SELECT Sname
+FROM Suppliers, Catalog, Parts
+WHERE Color == "Red";
+
+/*1.2*/
+SELECT SID
+FROM Suppliers, Catalog, Parts
+WHERE Color == "Red" OR Color == "Green";
+
+/*1.3*/
+SELECT SID
+FROM Suppliers, Catalog, Parts
+WHERE Color == "Red" OR Address == "221 Packer Street";
+
+/*1.4*/
+
+/*1.5*/
+
+/*1.6*/
+SELECT F.SID, S.SID
+FROM Suppliers AS F, Suppliers AS S, Catalog, Parts
+WHERE F.Cost > S.Cost;
+
+/*1.7*/
+SELECT PID
+FROM Suppliers, Catalog, Parts AS F, Parts AS S
+WHERE F.Pid == S.Pid AND F.Sname != S.Sname;
+
+/*1.8*/
+SELECT AVG(Cost)
+FROM Suppliers, Catalog, Parts
+WHERE Color == "Green" OR Color == "Red";
+
+/*1.9*/
+SELECT MAX(Cost)
+FROM Suppliers, Catalog, Parts
+WHERE Cost >= 50;
