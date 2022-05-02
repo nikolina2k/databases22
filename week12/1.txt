@@ -21,3 +21,33 @@ CREATE (aa: Person { name: "Khabib Nurmagomedov", weight: 155}),
 (ff)-[:BEATS]->(hh),
 (ff)-[:BEATS]->(ll),
 (hh)-[:BEATS]->(dd)
+
+// Return all middle/Walter/light weight fighters (155,170,185) who at least have one win
+
+MATCH (p: Person)-[:BEATS]-(enemy)
+WHERE p.weight>=155 and p.weight<=185
+RETURN p
+
+// Return fighters who had 1-1 record with each other. Use Count from the aggregation functions.
+
+MATCH (f1: Person)-[r: BEATS]->(f2: Person), (f2: Person)-[r2: BEATS]->(f1: Person)
+WITH count(r) as count, count(r2) as count2, f1 as f1
+WHERE count = 1 AND count2=1
+RETURN f1
+
+// Return all fighter that can “Khabib Nurmagomedov” beat them and he didn’t have a fight with them yet.
+
+MATCH (p1:Person)
+WHERE p1.name = "Khabib Nurmagomedov"
+MATCH (p2:Person)
+WHERE
+    NOT (p1)-[:BEATS]->(p2) AND
+    NOT (p2)-[:BEATS*]->(p1) AND  p2 <> p1
+RETURN p2
+
+// Return undefeated Fighters(0 loss), defeated fighter (0 wins).
+
+MATCH (p:Person) 
+WHERE
+    NOT ()-[:BEATS]->(p) OR NOT (p)-[:BEATS]->()
+RETURN p
